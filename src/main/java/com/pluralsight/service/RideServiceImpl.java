@@ -24,4 +24,18 @@ public class RideServiceImpl implements RideService {
 		// TODO Auto-generated method stub
 		return rideRepository.createRide(ride);
 	}
+
+	@Override
+	public Ride getRide(Integer id) {
+		// TODO Auto-generated method stub
+		return rideRepository.getRide(id);
+	}
+
+	@Override
+	public Ride updateRide(Ride ride) {
+		// TODO Auto-generated method stub
+		return rideRepository.updateRide(ride);
+	}
+	
+
 }

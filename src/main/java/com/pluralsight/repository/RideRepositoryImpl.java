@@ -1,8 +1,6 @@
 package com.pluralsight.repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,11 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.pluralsight.model.Ride;
@@ -77,11 +71,20 @@ public class RideRepositoryImpl implements RideRepository {
 		return getRide(id.intValue());
 	}
 	
+	@Override
 	public Ride getRide(Integer id) {
 		Ride ride = jdbcTermplate.queryForObject("select * from ride where id = ?", new RideRowMapper(),id);
 		
 		return ride;
 		
+	}
+
+	@Override
+	public Ride updateRide(Ride ride) {
+		// TODO Auto-generated method stub
+		jdbcTermplate.update("update ride set name = ?, duration = ? where id = ?",ride.getName(),ride.getDuration(),ride.getId());
+		
+		return ride;
 	}
 	
 	
