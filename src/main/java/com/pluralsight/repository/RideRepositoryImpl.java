@@ -3,11 +3,16 @@ package com.pluralsight.repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -33,6 +38,8 @@ public class RideRepositoryImpl implements RideRepository {
 		// TODO Auto-generated method stub
 		
 		//jdbcTermplate.update("insert into ride (name,duration) values(?,?)",ride.getName(),ride.getDuration());
+		
+		/*
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTermplate.update(new PreparedStatementCreator() {
 
@@ -48,7 +55,24 @@ public class RideRepositoryImpl implements RideRepository {
 			}
 		}, keyHolder);
 		
-		Number id = keyHolder.getKey();
+		Number id = keyHolder.getKey();*/
+		
+		SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTermplate);
+		List<String> colums = new ArrayList<>();
+		
+		colums.add("name");
+		colums.add("duration");
+		
+		insert.setTableName("ride");
+		insert.setColumnNames(colums);
+		
+		Map<String,Object> data = new HashMap<>();
+		data.put("name", ride.getName());
+		data.put("duration", ride.getDuration());
+		
+		insert.setGeneratedKeyName("id");
+		
+		Number id = insert.executeAndReturnKey(data);
 		
 		return getRide(id.intValue());
 	}
