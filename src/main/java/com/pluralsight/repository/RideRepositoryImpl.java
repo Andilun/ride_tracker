@@ -94,5 +94,11 @@ public class RideRepositoryImpl implements RideRepository {
 		
 	}
 	
+	@Override
+	public void deleteRide(Integer id) {
+		jdbcTermplate.update("delete from ride where id = ?",id);
+		
+	}
+	
 	
 }

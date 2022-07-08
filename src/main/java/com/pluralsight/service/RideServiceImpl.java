@@ -23,25 +23,21 @@ public class RideServiceImpl implements RideService {
 
 	@Override
 	public Ride createRide(Ride ride) {
-		// TODO Auto-generated method stub
 		return rideRepository.createRide(ride);
 	}
 
 	@Override
 	public Ride getRide(Integer id) {
-		// TODO Auto-generated method stub
 		return rideRepository.getRide(id);
 	}
 
 	@Override
 	public Ride updateRide(Ride ride) {
-		// TODO Auto-generated method stub
 		return rideRepository.updateRide(ride);
 	}
 
 	@Override
 	public void batch() {
-		// TODO Auto-generated method stub
 		List<Ride> rides = rideRepository.getRides();
 		List<Object[]> pairs = new ArrayList<>();
 		
@@ -51,6 +47,11 @@ public class RideServiceImpl implements RideService {
 		}
 		rideRepository.updateRides(pairs);
 		
+	}
+
+	@Override
+	public void deleteRide(Integer id) {
+		rideRepository.deleteRide(id);		
 	}
 	
 
